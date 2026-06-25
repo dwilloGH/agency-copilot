@@ -1,17 +1,14 @@
 'use client';
 
-import Image from "next/image";
-import { useState } from "react";
-
 export default function Home() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-black font-sans transition-colors">
       <main className="w-full max-w-lg mx-auto p-8 sm:rounded-2xl bg-white/90 dark:bg-zinc-900 shadow-lg flex flex-col items-center">
         <h1 className="text-4xl md:text-5xl font-bold text-center tracking-tight text-black dark:text-white mb-5">
-          Win more agency deals.
+          Win more client work.
         </h1>
         <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-300 text-center mb-10 max-w-xl">
-          Generate AI-powered discovery briefs, technical recommendations and proposal outlines in minutes.
+          Evaluate new opportunities, prepare better discovery meetings, and generate technical proposals with AI.
         </p>
         <form
           className="w-full flex flex-col gap-6"
@@ -20,15 +17,15 @@ export default function Home() {
         >
           <div>
             <label
-              htmlFor="company-website"
+              htmlFor="companyWebsite"
               className="block mb-2 text-sm font-medium text-zinc-800 dark:text-zinc-200"
             >
               Company website
             </label>
             <input
               type="url"
-              id="company-website"
-              name="company-website"
+              id="companyWebsite"
+              name="companyWebsite"
               placeholder="https://example.com"
               className="block w-full px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-[2px] focus:ring-black dark:focus:ring-zinc-500 transition"
               required
@@ -36,16 +33,32 @@ export default function Home() {
           </div>
           <div>
             <label
-              htmlFor="additional-context"
+              htmlFor="clientRequest"
               className="block mb-2 text-sm font-medium text-zinc-800 dark:text-zinc-200"
             >
-              Additional context
+              What does the client want?
             </label>
             <textarea
-              id="additional-context"
-              name="additional-context"
-              rows={5}
-              placeholder="Describe goals, challenges, or anything relevant…"
+              id="clientRequest"
+              name="clientRequest"
+              rows={4}
+              placeholder="Describe the project, goals, or deliverables the client is asking for…"
+              className="block w-full px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 resize-none focus:outline-none focus:ring-[2px] focus:ring-black dark:focus:ring-zinc-500 transition"
+              required
+            ></textarea>
+          </div>
+          <div>
+            <label
+              htmlFor="additionalContext"
+              className="block mb-2 text-sm font-medium text-zinc-800 dark:text-zinc-200"
+            >
+              Additional notes
+            </label>
+            <textarea
+              id="additionalContext"
+              name="additionalContext"
+              rows={4}
+              placeholder="Budget, timeline, stakeholders, or anything else worth noting…"
               className="block w-full px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 resize-none focus:outline-none focus:ring-[2px] focus:ring-black dark:focus:ring-zinc-500 transition"
             ></textarea>
           </div>
@@ -53,7 +66,7 @@ export default function Home() {
             type="submit"
             className="mt-4 w-full py-4 text-lg font-semibold rounded-xl bg-black text-white dark:bg-white dark:text-black shadow-md hover:scale-[1.02] active:scale-100 transition-all focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
           >
-            Generate Brief
+            Generate Discovery Brief
           </button>
         </form>
       </main>
