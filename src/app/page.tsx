@@ -2,14 +2,9 @@
 
 import { useState, type SubmitEvent } from "react";
 
-type GenerateBriefResponse = {
-  success: true;
-  data: {
-    companyWebsite: string;
-    clientRequest: string;
-    additionalContext: string;
-  };
-};
+type GenerateBriefResponse =
+  | { success: true; markdown: string }
+  | { success: false; error: string };
 
 function normalizeWebsiteUrl(value: string): string {
   const trimmed = value.trim();
@@ -57,7 +52,7 @@ export default function Home() {
   const [clientRequestTouched, setClientRequestTouched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [response, setResponse] = useState<GenerateBriefResponse | null>(null);
+  const [markdown, setMarkdown] = useState<string | null>(null);
 
   const websiteError = getWebsiteError(companyWebsite);
   const clientRequestError = getClientRequestError(clientRequest);
@@ -79,7 +74,7 @@ export default function Home() {
 
     setLoading(true);
     setError(null);
-    setResponse(null);
+    setMarkdown(null);
 
     const payload = {
       companyWebsite: normalizeWebsiteUrl(companyWebsite),
@@ -94,14 +89,14 @@ export default function Home() {
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
+      const data: GenerateBriefResponse = await res.json();
 
-      if (!res.ok) {
+      if (!data.success) {
         setError(data.error ?? "Something went wrong. Please try again.");
         return;
       }
 
-      setResponse(data);
+      setMarkdown(data.markdown);
     } catch {
       setError("Failed to connect to the server. Please try again.");
     } finally {
@@ -232,16 +227,16 @@ export default function Home() {
           </div>
         )}
 
-        {response && (
+        {markdown && (
           <div className="w-full mt-6 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 overflow-hidden">
             <div className="px-4 py-3 border-b border-zinc-200 dark:border-zinc-700">
               <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
-                Response
+                Discovery Brief
               </p>
             </div>
-            <pre className="p-4 text-sm text-zinc-700 dark:text-zinc-300 overflow-x-auto font-mono leading-relaxed">
-              {JSON.stringify(response, null, 2)}
-            </pre>
+            <div className="p-4 text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed whitespace-pre-wrap">
+              {markdown}
+            </div>
           </div>
         )}
       </main>
