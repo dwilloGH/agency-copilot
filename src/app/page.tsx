@@ -214,8 +214,20 @@ export default function Home() {
             disabled={loading || !isFormValid}
             className="mt-4 w-full py-4 text-lg font-semibold rounded-xl bg-black text-white dark:bg-white dark:text-black shadow-md hover:scale-[1.02] active:scale-100 transition-all focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
-            {loading ? "Generating…" : "Generate Client Brief"}
+            {loading ? "Evaluating opportunity..." : "Generate Client Brief"}
           </button>
+          {loading && (
+            <div
+              role="status"
+              className="flex items-center justify-center gap-2 text-sm text-zinc-600 dark:text-zinc-400 animate-pulse"
+            >
+              <span
+                className="inline-block h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-zinc-300 dark:border-zinc-600 border-t-zinc-800 dark:border-t-zinc-200"
+                aria-hidden="true"
+              />
+              <span>Analysing the opportunity and generating your brief...</span>
+            </div>
+          )}
         </form>
 
         {error && (
